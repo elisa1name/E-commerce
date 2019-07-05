@@ -3,12 +3,27 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * * @UniqueEntity(
+ * fields={"email"},
+ * message="L'email est déja utilisé!"
+ * )
  */
-class User
+class User implements UserInterface
 {
+
+     /**
+     * @var array
+     * @ORM\Column(type="array")
+     */
+    private $roles;
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -48,8 +63,14 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\EqualTo(propertyPath= "confirm_password", message="Mot de passe différents")
      */
-    private $password;
+    private $password; 
+    
+    /**
+     * @Assert\EqualTo(propertyPath= "confirm_password",message="Mot de passe différents")
+     */
+
     public $confirm_password;
 
     public function getId(): ?int
@@ -139,5 +160,29 @@ class User
         $this->password = $password;
 
         return $this;
+    }
+
+    /*
+    * @return array (role|string)[] the user roles
+    */
+    public function getRoles()
+    {
+        return $this->roles; 
+        
+    }
+ 
+    public function setRoles(array $roles)
+    {
+        $this->roles = $roles;
+        return $this;
+    }
+
+    public function getUsername(){
+
+    }
+
+     public function eraseCredentials(){}
+    public function getSalt(){
+        return null;
     }
 }
