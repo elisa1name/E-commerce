@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CategoriesRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  */
-class Categories
+class Category
 {
     /**
      * @ORM\Id()
@@ -21,10 +21,10 @@ class Categories
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $categorie;
+    private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Articles", mappedBy="categories")
+     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="category")
      */
     private $articles;
 
@@ -38,43 +38,43 @@ class Categories
         return $this->id;
     }
 
-    public function getCategorie(): ?string
+    public function getName(): ?string
     {
-        return $this->categorie;
+        return $this->name;
     }
 
-    public function setCategorie(string $categorie): self
+    public function setName(string $name): self
     {
-        $this->categorie = $categorie;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * @return Collection|Articles[]
+     * @return Collection|Article[]
      */
     public function getArticles(): Collection
     {
         return $this->articles;
     }
 
-    public function addArticle(Articles $article): self
+    public function addArticle(Article $article): self
     {
         if (!$this->articles->contains($article)) {
             $this->articles[] = $article;
-            $article->setCategories($this);
+            $article->setCategory($this);
         }
 
         return $this;
     }
 
-    public function removeArticle(Articles $article): self
+    public function removeArticle(Article $article): self
     {
         if ($this->articles->contains($article)) {
             $this->articles->removeElement($article);
             // set the owning side to null (unless already changed)
-            if ($article->getCategories() === $this) {
-                $article->setCategories(null);
+            if ($article->getCategory() === $this) {
+                $article->setCategory(null);
             }
         }
 

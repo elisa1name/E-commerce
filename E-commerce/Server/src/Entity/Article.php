@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ArticlesRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
  */
-class Articles
+class Article
 {
     /**
      * @ORM\Id()
@@ -19,7 +19,7 @@ class Articles
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $article;
+    private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -27,24 +27,24 @@ class Articles
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Categories", inversedBy="articles")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $categories;
+    private $category;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getArticle(): ?string
+    public function getName(): ?string
     {
-        return $this->article;
+        return $this->name;
     }
 
-    public function setArticle(string $article): self
+    public function setName(string $name): self
     {
-        $this->article = $article;
+        $this->name = $name;
 
         return $this;
     }
@@ -61,14 +61,14 @@ class Articles
         return $this;
     }
 
-    public function getCategories(): ?Categories
+    public function getCategory(): ?Category
     {
-        return $this->categories;
+        return $this->category;
     }
 
-    public function setCategories(?Categories $categories): self
+    public function setCategory(?Category $category): self
     {
-        $this->categories = $categories;
+        $this->category = $category;
 
         return $this;
     }
