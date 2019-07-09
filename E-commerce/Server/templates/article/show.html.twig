@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Article</h1>
 
-    <table class="table">
+    <table width=60% border=1 class="table">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -19,10 +19,14 @@
                 <th>Description</th>
                 <td>{{ article.description }}</td>
             </tr>
+            <tr>
+                <th>Category</th>
+                 <td>{{ article.getCategory().name }}</td> 
+            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('article_index') }}">back to list</a>
+    {# <a href="{{ path('article_index') }}">back to list</a> #}
 
     <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
 

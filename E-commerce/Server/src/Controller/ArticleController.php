@@ -35,9 +35,9 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="article_new", methods={"GET","POST"})
+     * @Route("/new/{id}", name="article_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, $id): Response
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
@@ -55,10 +55,17 @@ class ArticleController extends AbstractController
             'article' => $article,
             'form' => $form->createView(),
         ]);
+        // return new Response('
+        //     <html>
+        //         <body>
+        //             <h1>Hello Symfony 4 World</h1>
+        //         </body>
+        //     </html>
+        // ');
     }
 
     /**
-     * @Route("/{id}", name="article_show", methods={"GET"})
+     * @Route("/{id}/show", name="article_show", methods={"GET"})
      */
     public function show(Article $article): Response
     {
