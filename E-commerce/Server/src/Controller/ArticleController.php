@@ -48,20 +48,13 @@ class ArticleController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
-            return $this->redirectToRoute('article_index');
+            return $this->redirectToRoute('category_index');
         }
 
         return $this->render('article/new.html.twig', [
             'article' => $article,
             'form' => $form->createView(),
         ]);
-        // return new Response('
-        //     <html>
-        //         <body>
-        //             <h1>Hello Symfony 4 World</h1>
-        //         </body>
-        //     </html>
-        // ');
     }
 
     /**
@@ -107,6 +100,6 @@ class ArticleController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('article_index');
+        return $this->redirectToRoute('category_index');
     }
 }
