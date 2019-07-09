@@ -63,12 +63,11 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\EqualTo(propertyPath= "confirm_password", message="Mot de passe différents")
      */
     private $password; 
     
     /**
-     * @Assert\EqualTo(propertyPath= "confirm_password",message="Mot de passe différents")
+     * 
      */
 
     public $confirm_password;

@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/security", name="security")
+     * @Route("/", name="security")
      */
     public function index()
     {
@@ -37,9 +37,11 @@ class SecurityController extends AbstractController
             $hash = $encoder->encodePassword($user,$user->getPassword());
 
             $user->setPassword($hash);
-            $user->setRoles(['ROLE_USER']);
+            $user->setRoles(['ROLE_ADMIN']);
             $manager->persist($user);
             $manager->flush();
+
+            return $this->redirectToRoute('security_login');
            
         }
 
