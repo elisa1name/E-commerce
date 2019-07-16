@@ -9,97 +9,66 @@ use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+// use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use FOS\RestBundle\View\View;
+use FOS\RestBundle\Controller\Annotations as FOSRest;
 
-/**
- * @Route("/article")
- */
+
 class ArticleController extends AbstractController
 {
-    /**
-     * @Route("/{id}", name="article_index", methods={"GET"})
+     /**
+     * Lists all Articles.
+     * @FOSRest\Get("/article")
+     *
+     * @return array
      */
-    public function index(ArticleRepository $articleRepository, $id): Response
+    public function getArticlesAction()
     {
-        $articleRepository = $this->getDoctrine()
-          ->getRepository(Article::class)
-        //   ->findAll();
-        ->findBy(
-            ['category' => $id ]
-        );
-        // dd($articleRepository);
-        return $this->render('article/index.html.twig', [
-            'articles' => $articleRepository
-        ]);
-
+        $repository = $this->getDoctrine()->getRepository(Article::class);
+        
+        // query for a single Product by its primary key (usually "id")
+        $article = $repository->findall();
+        
+        return View::create($article, Response::HTTP_OK , []);
     }
 
     /**
-     * @Route("/new/{id}", name="article_new", methods={"GET","POST"})
+     * Lists all Articles.
+     * @FOSRest\Get("/article/{articleId}")
+     *
+     * @return array
      */
-    public function new(Request $request, $id): Response
+    public function getArticleAction(int $articleId)
     {
+        $repository = $this->getDoctrine()->getRepository(Article::class);
+        
+        // query for a single Product by its primary key (usually "id")
+        $article = $repository->findById($articleId);
+        
+        return View::create($article, Response::HTTP_OK , []);
+    }
+
+
+    /**
+     * Create Article.
+     * @FOSRest\Post("/article")
+     *
+     * @return array
+     */
+    public function postArticleAction(Request $request)
+    {
+        //idée je instance category select where $id = id category
         $article = new Article();
-        $form = $this->createForm(ArticleType::class, $article);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($article);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('category_index');
-        }
-
-        return $this->render('article/new.html.twig', [
-            'article' => $article,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/show", name="article_show", methods={"GET"})
-     */
-    public function show(Article $article): Response
-    {
-        return $this->render('article/show.html.twig', [
-            'article' => $article,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, Article $article): Response
-    {
-        $form = $this->createForm(ArticleType::class, $article);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('article_index', [
-                'id' => $article->getId(),
-            ]);
-        }
-
-        return $this->render('article/edit.html.twig', [
-            'article' => $article,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="article_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Article $article): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($article);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('category_index');
+        $article->setName($request->get('name'));
+        $article->setDescription($request->get('description'));
+        $article->setCategory($request->get('category'));
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($article);
+        $em->flush();
+        return View::create($article, Response::HTTP_CREATED , []);
+        
     }
 }
