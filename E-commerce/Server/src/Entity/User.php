@@ -66,12 +66,6 @@ class User implements UserInterface
      */
     private $password; 
     
-    /**
-     * 
-     */
-
-    public $confirm_password;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -180,7 +174,7 @@ class User implements UserInterface
 
     }
 
-     public function eraseCredentials(){}
+    public function eraseCredentials(){}
     public function getSalt(){
         return null;
     }
