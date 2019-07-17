@@ -91,12 +91,12 @@ class SecurityController extends AbstractController
     */
     public function profile() 
     {
-
+        
         $encoders = [new XmlEncoder(), new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
-        
-        $user = $this->get('security.token_storage')->getToken();
+
+        $user = $this->getUser(); 
 
         $jsonContent = $serializer->serialize($user, 'json');
         $response = new Response($jsonContent);
@@ -114,7 +114,7 @@ class SecurityController extends AbstractController
         $normalizers = [new ObjectNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
 
-        $user = $this->getUser(); 
+        $user = $this->get('security.token_storage')->getToken();
 
         $jsonContent = $serializer->serialize($user, 'json');
         $response = new Response($jsonContent);
