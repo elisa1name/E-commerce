@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import '../assets/register.css';
-import { Container } from 'react-bootstrap';
-import Footer from './footer.js';
-import Photo from '../assets/photofond.jpg';
 
 class Register extends Component {
   constructor(props) {
@@ -33,63 +30,32 @@ class Register extends Component {
     return (
       <div id="register">
         <form onSubmit={this.handleSubmit}>
-        <p className="nouveau_client">Nouveau client ?</p>
-        <FormGroup controlId="FirstName" bsSize="large">
-            <FormLabel className="label">Prenom</FormLabel>
-            <FormControl
-              className="control"
-              autoFocus
-              type="FirstName"
-              placeholder=".................."
-              value={this.state.FirstName}
-              onChange={this.handleChange}
-            />
-          </FormGroup>
-          <FormGroup controlId="Name" bsSize="large">
-            <FormLabel  className="label">Nom</FormLabel>
-            <FormControl
-             className="control"
-              value={this.state.userName}
-              onChange={this.handleChange}
-              type="Name"
-              placeholder=".................."
-            />
-          </FormGroup>
           <FormGroup controlId="email" bsSize="large">
-            <FormLabel className="label">E-mail</FormLabel>
+            <FormLabel>Email</FormLabel>
             <FormControl
-              className="control"
               autoFocus
               type="email"
-              placeholder=".................."
               value={this.state.email}
               onChange={this.handleChange}
             />
           </FormGroup>
           <FormGroup controlId="password" bsSize="large">
-            <FormLabel className="label">Password</FormLabel>
+            <FormLabel>Password</FormLabel>
             <FormControl
-              className="control"
               value={this.state.password}
               onChange={this.handleChange}
               type="password"
-              placeholder=".................."
             />
           </FormGroup>
-          <p className="confidentialité">En créant un compte, vous acceptez les Conditions générales de vente de Teck-Box.
-           Veuillez consulter notre Notice Protection de vos Informations Personnelles, notre Notice Cookies et notre
-            Notice Annonces publicitaires basées sur vos centres d’intérêt..</p>
-          <Button 
-            className="button"
+          <Button
             block
             bsSize="large"
             disabled={!this.validateForm()}
             type="submit"
           >
-            Inscrivez-vous
+            Register
           </Button>
         </form>
-        <Footer />
       </div>
     );
   }

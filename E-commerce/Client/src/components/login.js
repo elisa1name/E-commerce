@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, FormLabel, } from "react-bootstrap";
 import '../assets/login.css';
-import { Container, Row, Col } from 'react-bootstrap';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
@@ -32,37 +30,38 @@ class Login extends Component {
     return (
       <div id="login">
         <form onSubmit={this.handleSubmit}>
-        <p className="nouveau_client">Deja client ?</p>
           <FormGroup controlId="email"  bsSize="large">
-            <FormLabel className="label1">E-mail</FormLabel>
+            <FormLabel class="label">Email</FormLabel>
             <FormControl
-             className="control1"
               autoFocus
               type="email"
-              placeholder=".................."
               value={this.state.email}
               onChange={this.handleChange}
             />
           </FormGroup>
-          <FormGroup controlId="password" bsSize="large">
-            <FormLabel  className="label1">Password</FormLabel>
+          <FormGroup controlId="userName" bsSize="large">
+            <FormLabel>UserName</FormLabel>
             <FormControl
-            className="control1"
+              value={this.state.userName}
+              onChange={this.handleChange}
+              type="userName"
+            />
+          </FormGroup>
+          <FormGroup controlId="password" bsSize="large">
+            <FormLabel>Password</FormLabel>
+            <FormControl
               value={this.state.password}
               onChange={this.handleChange}
               type="password"
-              placeholder=".................."
             />
           </FormGroup>
-            <p className="confidentialité">En continuant, vous acceptez les Conditions d'utilisation et la Politique de confidentialité de Teck-Box.</p>
           <Button 
-            className="button"
             block
             bsSize="large"
             disabled={!this.validateForm()}
             type="submit"
           >
-            Identifiez-vous
+            Login
           </Button>
         </form>
       </div>
