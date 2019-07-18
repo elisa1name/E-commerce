@@ -4,12 +4,15 @@ import '../assets/register.css';
 import { Container } from 'react-bootstrap';
 import Footer from './footer.js';
 import Photo from '../assets/photofond.jpg';
+import axios from 'axios';
 
 class Register extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      FirstName:"",
+      Name:"",
       email: "",
       password: ""
     };
@@ -27,6 +30,20 @@ class Register extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+
+    const user = {
+      name: this.state.name,
+      firstname: this.state.firstname,
+      email: this.state.email,
+      password: this.state.password
+    };
+    console.log(user);
+
+    axios.post(`http://127.0.0.1:8000/register`, user)
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+    })
   }
 
   render() {
@@ -41,7 +58,7 @@ class Register extends Component {
               autoFocus
               type="FirstName"
               placeholder=".................."
-              value={this.state.FirstName}
+              value={this.state.firstname}
               onChange={this.handleChange}
             />
           </FormGroup>
@@ -49,7 +66,7 @@ class Register extends Component {
             <FormLabel  className="label">Nom</FormLabel>
             <FormControl
              className="control"
-              value={this.state.userName}
+              value={this.state.name}
               onChange={this.handleChange}
               type="Name"
               placeholder=".................."
