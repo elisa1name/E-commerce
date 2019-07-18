@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e52a60ff9ea5a9d2e76f1149ca62be9c",
+    "content-hash": "32c85c8917fe1c861f5113ed7d113bef",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -8151,7 +8151,6 @@
                 "symfony/http-kernel": "^3.4|^4.0"
             },
             "require-dev": {
-                "allocine/twigcs": "^3.0",
                 "doctrine/doctrine-bundle": "^1.8",
                 "doctrine/orm": "^2.3",
                 "friendsofphp/php-cs-fixer": "^2.8",
