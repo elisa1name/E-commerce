@@ -11,8 +11,8 @@ class Register extends Component {
     super(props);
 
     this.state = {
-      FirstName:"",
-      Name:"",
+      firstname:"",
+      name:"",
       email: "",
       password: ""
     };
@@ -32,18 +32,21 @@ class Register extends Component {
     event.preventDefault();
 
     const user = {
-      name: this.state.name,
       firstname: this.state.firstname,
+      name: this.state.name,
       email: this.state.email,
       password: this.state.password
     };
-    console.log(user);
+    console.log(user);// recupere bien
 
     axios.post(`http://127.0.0.1:8000/register`, user)
       .then(res => {
         console.log(res);
         console.log(res.data);
     })
+      .catch(function (error) {
+    console.log(error);
+  });
   }
 
   render() {
@@ -51,24 +54,24 @@ class Register extends Component {
       <div id="register">
         <form onSubmit={this.handleSubmit}>
         <p className="nouveau_client">Nouveau client ?</p>
-        <FormGroup controlId="FirstName" bsSize="large">
+        <FormGroup controlId="firstname" bsSize="large">
             <FormLabel className="label">Prenom</FormLabel>
             <FormControl
               className="control"
               autoFocus
-              type="FirstName"
+              type="text"
               placeholder=".................."
               value={this.state.firstname}
               onChange={this.handleChange}
             />
           </FormGroup>
-          <FormGroup controlId="Name" bsSize="large">
+          <FormGroup controlId="name" bsSize="large">
             <FormLabel  className="label">Nom</FormLabel>
             <FormControl
              className="control"
               value={this.state.name}
               onChange={this.handleChange}
-              type="Name"
+              type="text"
               placeholder=".................."
             />
           </FormGroup>
