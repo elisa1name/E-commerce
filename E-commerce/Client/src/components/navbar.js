@@ -26,7 +26,7 @@ class Navbar extends Component {
                         </li>
                         <li class="nav-item">
                         <Tooltip content="Info" placement="bottom" background="rgb(53, 56, 47)" color="#FFF">
-                             <a class="nav-link" href="#"><img src={Infos} widht="100" height="50" alt="infos"/></a>
+                             <button class="nav-link" href="#"><img src={Infos} widht="100" height="50" alt="infos"/></button>
                         </Tooltip>
                         </li>
                 </ul>

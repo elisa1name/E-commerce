@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, FormLabel, } from "react-bootstrap";
+import axios from 'axios';
 import '../assets/login.css';
 import { Container, Row, Col } from 'react-bootstrap';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
@@ -10,7 +11,9 @@ class Login extends Component {
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      token: "",
+      result: ""
     };
   }
 
@@ -26,12 +29,47 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    var headers = {
+      'Content-Type': 'application/json'
+    }
+
+    var user = {
+      email : this.state.email,
+      password: this.state.password
+    }
+
+    axios.post(`http://localhost:8000/login_check`, user, {headers: headers})
+          .then(res => {
+            const token = res.data.token;
+            this.setState({ token });
+
+            if(this.state.token !== " ") {
+              localStorage.setItem('token',this.state.token);
+              this.setState({ result: "Connexion réussie !"  });
+               console.log(localStorage.getItem('token'));
+            }
+        })
+        .catch(error => {
+          console.log(error)
+          this.setState({ result: "Mot de passe et/ou email est incorrect"  });
+          console.log(this.state.result);
+
+      });
   }
 
+  isAuthenticated(){
+    const token = localStorage.getItem('token'); 
+    console.log(token);
+    return token && token.length > 10; 
+   }
+
   render() {
+    const isAuthenticated =this.isAuthenticated(); 
     return (
-      <div id="login">
-        <form onSubmit={this.handleSubmit}>
+      <div>
+      {isAuthenticated ? <Redirect to="/" /> : (
+        <div id="login">
+        <form onSubmit= {this.handleSubmit}>
         <p className="nouveau_client">Deja client ?</p>
           <FormGroup controlId="email"  bsSize="large">
             <FormLabel className="label1">E-mail</FormLabel>
@@ -61,13 +99,60 @@ class Login extends Component {
             bsSize="large"
             disabled={!this.validateForm()}
             type="submit"
+            onClick={() => {
+              alert(this.state.result);
+            }}
           >
             Identifiez-vous
           </Button>
         </form>
       </div>
+      )}
+      </div>
     );
   }
 }
 export default Login;
+
+/**
+ * <div id="login">
+        <form onSubmit= {this.handleSubmit}>
+        <p className="nouveau_client">Deja client ?</p>
+          <FormGroup controlId="email"  bsSize="large">
+            <FormLabel className="label1">E-mail</FormLabel>
+            <FormControl
+             className="control1"
+              autoFocus
+              type="email"
+              placeholder=".................."
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
+          </FormGroup>
+          <FormGroup controlId="password" bsSize="large">
+            <FormLabel  className="label1">Password</FormLabel>
+            <FormControl
+            className="control1"
+              value={this.state.password}
+              onChange={this.handleChange}
+              type="password"
+              placeholder=".................."
+            />
+          </FormGroup>
+            <p className="confidentialité">En continuant, vous acceptez les Conditions d'utilisation et la Politique de confidentialité de Teck-Box.</p>
+          <Button 
+            className="button"
+            block
+            bsSize="large"
+            disabled={!this.validateForm()}
+            type="submit"
+            onClick={() => {
+              alert(this.state.result);
+            }}
+          >
+            Identifiez-vous
+          </Button>
+        </form>
+      </div>
+ */
 
