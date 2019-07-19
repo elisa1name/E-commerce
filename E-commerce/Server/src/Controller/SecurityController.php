@@ -15,7 +15,6 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -23,7 +22,6 @@ use Symfony\Component\Serializer\Serializer;
 
 class SecurityController extends AbstractController
 {
-
     /**
      * @Route("/", name="security")
      */
@@ -70,7 +68,15 @@ class SecurityController extends AbstractController
         $user->setFixedDeliveryPrice(false);
         $manager->persist($user);
         $manager->flush();
+        echo "l'email est:" . $email. PHP_EOL;
 
+        
+
+        $emailVerif = $this->getDoctrine()
+        ->getRepository(User::class)
+        ->findBy([
+            'email' => $email,
+        ]);
         return new JsonResponse(["success" => $user->getEmail(). " est bien enregistré"], 200);
     }
 

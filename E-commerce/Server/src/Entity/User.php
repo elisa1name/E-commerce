@@ -10,10 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * * @UniqueEntity(
- * fields={"email"},
- * message="L'email est déja utilisé!"
- * )
+ * @UniqueEntity(fields={"email"}, message="L'email est déja utilisé!")
  */
 class User implements UserInterface
 {
@@ -42,7 +39,7 @@ class User implements UserInterface
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $email;
 
