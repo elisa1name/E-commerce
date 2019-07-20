@@ -26,19 +26,35 @@ import Footer from './components/footer.js';
 
 class App extends React.Component {
 
-
-  isAuthenticated(){
-    const token = localStorage.getItem('token'); 
-    console.log(token);
-    return token && token.length > 10; 
+  constructor(props) {
+    super(props);
+    this.state = {
+      isAuthenticated: null
+    }
+    this.changeData = this.changeData.bind(this)
   }
 
+  changeData(data) {
+    console.log(data);
+    this.setState({isAuthenticated: data})  
+  }
+
+  componentDidMount() {
+     //let result = this.child.current.isAuthenticated();
+     let token = localStorage.getItem('token');
+     if(token && token.length > 10) {
+       this.setState({isAuthenticated: true }) 
+     } else {
+       this.setState({isAuthenticated: false }) 
+     }
+  }
+  
    handleLogout = () => {
-     localStorage.removeItem('token');
+    this.setState({isAuthenticated: false})
+    localStorage.removeItem('token');
    }
  
-  render()  {
-    const isAuthenticated =this.isAuthenticated();
+  render() {
     return  (
       <BrowserRouter>
         <div>
@@ -51,15 +67,15 @@ class App extends React.Component {
             </Tooltip>
             </li>
 
-            { isAuthenticated ? (
+            {this.state.isAuthenticated ? (
               <li class="nav-item">
                 <Tooltip content="Deconnexion" placement="bottom" background="rgb(53, 56, 47)" color="#FFF">
-                  <Link to="/profil" onClick={this.handleLogout} ><img src={logout} widht="100" height="50" alt="infos"/></Link>
+                  <Link onClick={this.handleLogout} to="/" ><img src={logout} widht="100" height="50" alt="deconnexion"/></Link>
                 </Tooltip>
                </li>) :( 
               <li class="nav-item">
                 <Tooltip content="Login/Register" placement="bottom" background="rgb(53, 56, 47)" border="#000" color="#fff">
-                  <Link to="/profil"><img src={Profil} widht="100" height="50" alt="profil"/></Link>
+                  <Link to="/profil" ><img src={Profil} widht="100" height="50" alt="profil"/></Link>
                 </Tooltip>
               </li>
               )}
@@ -83,7 +99,7 @@ class App extends React.Component {
           <hr />
           <div className="main-route-place">
             <Route exact path="/" component={Home} />
-            <Route path="/profil" component={Login} />
+            <Route path="/profil" render={() => <Login changeFunction={this.changeData} /> } />
             <Route path="/profil" component={Register} />
             <Route path="/Infos" component={Infos} />
             <Route path="/panier" component={Panier} />
@@ -95,6 +111,7 @@ class App extends React.Component {
             <Route path="/protection_de_vos_informations_personnelles" component={Protection} />
             <Route path="/aide" component={Aide} />
             <Route path="/centres_d’intérêt" component={Centres} />
+            
           </div>
         </div>
       </BrowserRouter>
@@ -137,5 +154,7 @@ class Panier  extends React.Component {
     );
   }
 }
+
+
   
 export default App;

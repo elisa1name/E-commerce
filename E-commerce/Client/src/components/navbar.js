@@ -10,7 +10,7 @@ import { Nav, Row, Col, Button } from 'react-bootstrap';
 class Navbar extends Component {
     render() {
         return (
-            <div >
+            <div>
                 <nav class="navbar navbar-expand-sm bg-light">
                 <h1 class="logo">TECK-BOX</h1>
                     <ul class="navbar-nav">

@@ -23,7 +23,6 @@ use Symfony\Component\Serializer\Serializer;
 
 class SecurityController extends AbstractController
 {
-
     /**
      * @Route("/", name="security")
      */
