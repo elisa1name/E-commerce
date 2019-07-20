@@ -22,6 +22,7 @@ import Protection from './components/protection.js';
 import Aide from './components/aide.js';
 import Centres from './components/centres.js';
 import Footer from './components/footer.js';
+import axios from 'axios'; 
 
 
 class App extends React.Component {
@@ -32,6 +33,23 @@ class App extends React.Component {
       isAuthenticated: null
     }
     this.changeData = this.changeData.bind(this)
+
+    axios.interceptors.request.use(
+      (config) => {
+        let token = localStorage.getItem('token');
+    
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`
+        }
+    
+        return config;
+      }, 
+      (error) => {
+        console.log(error);
+        return Promise.reject(error);
+      }
+    );
+    
   }
 
   changeData(data) {
@@ -47,6 +65,16 @@ class App extends React.Component {
      } else {
        this.setState({isAuthenticated: false }) 
      }
+     
+     axios.get(`http://localhost:8000/api/profile`)
+     .then(res => {
+       console.log(res.data);
+   })
+   .catch(error => {
+     console.log(error)
+ });
+
+
   }
   
    handleLogout = () => {
