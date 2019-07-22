@@ -16,6 +16,7 @@ import Contenu from './components/contenu.js';
 import Categorie from './components/categorie.js';
 import Nouveauté from './components/nouveauté.js';
 import Coeur from './components/coeur.js';
+import Profile from './components/profile.js';
 import Contact from './components/contact.js';
 import Conditions from './components/conditions.js';
 import Protection from './components/protection.js';
@@ -96,11 +97,18 @@ class App extends React.Component {
             </li>
 
             {this.state.isAuthenticated ? (
-              <li class="nav-item">
-                <Tooltip content="Deconnexion" placement="bottom" background="rgb(53, 56, 47)" color="#FFF">
+
+                <li class="nav-item">
+                  <Tooltip content="Profile" placement="bottom" background="rgb(53, 56, 47)" color="#FFF">
+                    <Link style={{marginRight: "15px"}} to="/moncompte" ><img src={Profil} widht="100" height="50" alt="profil"/></Link>
+                  </Tooltip>
+
+
+                  <Tooltip content="Deconnexion" placement="bottom" background="rgb(53, 56, 47)" color="#FFF">
                   <Link onClick={this.handleLogout} to="/" ><img src={logout} widht="100" height="50" alt="deconnexion"/></Link>
                 </Tooltip>
-               </li>) :( 
+                </li>
+               ) :( 
               <li class="nav-item">
                 <Tooltip content="Login/Register" placement="bottom" background="rgb(53, 56, 47)" border="#000" color="#fff">
                   <Link to="/profil" ><img src={Profil} widht="100" height="50" alt="profil"/></Link>
@@ -138,7 +146,8 @@ class App extends React.Component {
             <Route path="/conditions_d'utilisation" component={Conditions} />
             <Route path="/protection_de_vos_informations_personnelles" component={Protection} />
             <Route path="/aide" component={Aide} />
-            <Route path="/centres_d’intérêt" component={Centres} />
+            <Route path="/centres_d’intérêt" component={Centres}/>
+            <Route path="/moncompte" component={Profile} />
             
           </div>
         </div>
