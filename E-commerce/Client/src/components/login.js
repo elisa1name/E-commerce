@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, FormLabel, } from "react-bootstrap";
+import axios from 'axios';
 import '../assets/login.css';
 import { Container, Row, Col } from 'react-bootstrap';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
@@ -10,7 +11,9 @@ class Login extends Component {
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      token: "",
+      result: ""
     };
   }
 
@@ -26,12 +29,48 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    var headers = {
+      'Content-Type': 'application/json'
+    }
+
+    var user = {
+      email : this.state.email,
+      password: this.state.password
+    }
+
+    axios.post(`http://localhost:8000/login_check`, user, {headers: headers})
+          .then(res => {
+            const token = res.data.token;
+            this.setState({ token });
+            this.props.changeFunction(true);
+            if(this.state.token !== " ") {
+              
+              localStorage.setItem('token',this.state.token);
+              this.setState({ result: "Connexion réussie !"  });
+              alert(this.state.result);
+            }
+        })
+        .catch(error => {
+          console.log(error)
+          this.setState({ result: "Mot de passe et/ou email est incorrect"  });
+          alert(this.state.result);
+
+      });
   }
 
+  isAuthenticated(){
+    const token = localStorage.getItem('token'); 
+   
+    return token && token.length > 10; 
+   }
+
   render() {
+    const isAuthenticated =this.isAuthenticated(); 
     return (
-      <div id="login">
-        <form onSubmit={this.handleSubmit}>
+      <div>
+      {isAuthenticated ? <Redirect to="/" /> : (
+        <div id="login">
+        <form onSubmit= {this.handleSubmit}>
         <p className="nouveau_client">Deja client ?</p>
           <FormGroup controlId="email"  bsSize="large">
             <FormLabel className="label1">E-mail</FormLabel>
@@ -66,8 +105,10 @@ class Login extends Component {
           </Button>
         </form>
       </div>
+
+      )}
+      </div>
     );
   }
 }
 export default Login;
-
