@@ -15,7 +15,7 @@ export default class Profile extends Component {
             telephone: null, 
         }
     }
-
+    
     componentDidMount() {
         axios.get(`http://localhost:8000/api/profile`)
         .then(res => {
@@ -33,8 +33,7 @@ export default class Profile extends Component {
 
     isAuthenticated(){
         const token = localStorage.getItem('token'); 
-        return token && token.length > 10; 
-       
+        return token && token.length > 10;
     }
 
     render(){
@@ -55,7 +54,6 @@ export default class Profile extends Component {
                     <div>
                         <h5>Email :</h5> <p> {this.state.email} </p>
                     </div>
-
                     <div>
                         <h5>Adresse :</h5>  
                         {adress ? (<p>{this.state.adress}</p>): (
@@ -66,13 +64,11 @@ export default class Profile extends Component {
                             </div>
                         )}
                     </div>
-
                     <div>
                         <h5> Téléphone :</h5> 
                         {telephone ? (<p>{this.state.telephone}</p>): (
                             <div> 
                                 <p style={{padding : "10px"}}>Veuillez complèter votre numéro de téléphone</p>
-                                
                                 <Link to="/editUser">Modifier</Link>
                             </div>
                         )}

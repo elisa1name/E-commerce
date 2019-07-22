@@ -71,12 +71,10 @@ class App extends React.Component {
      axios.get(`http://localhost:8000/api/profile`)
      .then(res => {
        console.log(res.data);
-   })
-   .catch(error => {
-     console.log(error)
- });
-
-
+      })
+      .catch(error => {
+        console.log(error)
+      });
   }
   
    handleLogout = () => {
@@ -112,7 +110,7 @@ class App extends React.Component {
                ) :( 
               <li class="nav-item">
                 <Tooltip content="Login/Register" placement="bottom" background="rgb(53, 56, 47)" border="#000" color="#fff">
-                  <Link to="/profil" ><img src={Profil} widht="100" height="50" alt="profil"/></Link>
+                  <Link to="/auth" ><img src={Profil} widht="100" height="50" alt="profil"/></Link>
                 </Tooltip>
               </li>
               )}
@@ -122,22 +120,17 @@ class App extends React.Component {
                 <Link to="/panier"><img src={pngPanier} widht="100" height="50" alt="infos"/></Link>
               </Tooltip>
             </li>
-            
-            
+                        
             <li class="nav-item">
             <Tooltip content="Info" placement="bottom" background="rgb(53, 56, 47)" color="#FFF">
                 <Link to="/infos"><img src={pngInfo} widht="100" height="50" alt="infos"/></Link>
             </Tooltip>
             </li>
-            
-
            </ul>
           </nav>
           <hr />
           <div className="main-route-place">
             <Route exact path="/" component={Home} />
-            <Route path="/profil" render={() => <Login changeFunction={this.changeData} /> } />
-            <Route path="/profil" component={Register} />
             <Route path="/Infos" component={Infos} />
             <Route path="/panier" component={Panier} />
             <Route path="/categorie" component={Categorie} />
@@ -148,9 +141,16 @@ class App extends React.Component {
             <Route path="/protection_de_vos_informations_personnelles" component={Protection} />
             <Route path="/aide" component={Aide} />
             <Route path="/centres_d’intérêt" component={Centres}/>
-            <Route path="/moncompte" component={Profile} />
-            <Route path="/editUser" component={EditUser} />
-            
+            <Route path="/auth" render={() => <Login changeFunction={this.changeData} /> } />
+            <Route path="/auth" component={Register} />
+
+            { this.state.isAuthenticated && (
+                <div>
+                  <Route path="/moncompte" component={Profile} />
+                  <Route path="/editUser" component={EditUser} />
+                </div>
+              )
+            }
           </div>
         </div>
       </BrowserRouter>
