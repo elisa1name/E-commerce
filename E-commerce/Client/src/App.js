@@ -3,6 +3,7 @@ import Navbar from './components/navbar.js';
 import Search from './components/search.js';
 import Login from './components/login.js';
 import Register from './components/register.js';
+import EditUser from './components/edit_user.js'
 import { BrowserRouter, Link, Route } from 'react-router-dom';
 import classNames from 'classnames';
 import Tooltip from "react-simple-tooltip";
@@ -148,6 +149,7 @@ class App extends React.Component {
             <Route path="/aide" component={Aide} />
             <Route path="/centres_d’intérêt" component={Centres}/>
             <Route path="/moncompte" component={Profile} />
+            <Route path="/editUser" component={EditUser} />
             
           </div>
         </div>

@@ -68,7 +68,7 @@ class Login extends Component {
     const isAuthenticated =this.isAuthenticated(); 
     return (
       <div>
-      {isAuthenticated ? <Redirect to="/" /> : (
+      {isAuthenticated ? <Redirect to="/moncompte" /> : (
         <div id="login">
         <form onSubmit= {this.handleSubmit}>
         <p className="nouveau_client">Deja client ?</p>

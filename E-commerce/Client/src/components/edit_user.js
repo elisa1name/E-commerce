@@ -6,7 +6,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router'
 
-class Edit_register extends Component {
+export default class EditUser extends Component {
 
     render() {
         return (
