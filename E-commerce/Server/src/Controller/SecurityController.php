@@ -129,4 +129,69 @@ class SecurityController extends AbstractController
         return $response; 
     }
 
+     /** 
+    *@Route("/api/edit", name="api-edit")
+    */
+
+   
+    public function edit_user(Request $request,ObjectManager $manager, UserPasswordEncoderInterface $encoder): Response
+    {
+        $user = $this->getUser(); 
+         $content = json_decode(
+            $request->getContent(),true
+        );
+
+         
+         
+         $validator = Validation::createValidator();
+       
+
+        $constraint = new Assert\Collection(array(
+            // the keys correspond to the keys in the input array
+            'password' => new Assert\Length(array('min' => 3, 'minMessage'=>'Votre mot de passe doit contenir minimum 3 caracteres')),
+            'email' => new Assert\Email(array('message'=> 'Votre email est incorrect')),
+            'firstname' => new Assert\Length(array('min' => 2, 'minMessage'=>'Votre prenom doit contenir minimum 2 caracteres')),
+            'name' => new Assert\Length(array('min' => 2, 'minMessage'=>'Votre nom doit contenir minimum 2 caracteres')),
+            'adress'=> new Assert\Length(array('min' => 2, 'minMessage'=>'fgffffd')),
+            'telephone'=> new Assert\Length(array('min' => 2, 'minMessage'=>'fgffffd')),
+        ));
+
+         $violations = $validator->validate($content, $constraint);
+
+        if ($violations->count() > 0) {
+            return new JsonResponse(["error" => (string)$violations], 500);
+        }
+       
+ 
+        
+        $email = $content['email'];
+        $password = $content['password'];
+        $name = $content['name'];
+        $firstname = $content['firstname'];
+        $adress= $content['adress'];
+        $telephone =$content['telephone'];
+
+       
+
+       
+        $user->setPassword($encoder->encodePassword($user, $password));
+        $user->setEmail($email);
+        $user->setName($name);
+        $user->setFirstname($firstname);
+        $user->setFixedDeliveryPrice(false);
+        $user->setAdress($adress);
+        $user->setTelephone($telephone);
+        $manager->persist($user);
+        $manager->flush();
+
+        
+        // $emailVerif = $this->getDoctrine()
+        // ->getRepository(User::class)
+        // ->findBy([
+        //     'id' => $user->getId(),
+        // ]);
+        return new JsonResponse(["success" => $user->getName(). " profil modifier"], 200);
+
+    }
+
 }
