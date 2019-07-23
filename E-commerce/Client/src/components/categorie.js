@@ -6,23 +6,37 @@ import PropTypes from "prop-types";
 import TableRow from '@material-ui/core/TableRow';
 import ReactList from 'react-list';
 import Articles from '../components/articles.js';
+import ReactDOM from 'react-dom';
+import { BrowserRouter, Link, Route } from 'react-router-dom';
 
 class Categorie extends Component {
   
-  constructor(props) {
+  constructor(props, id) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    //this.id = id;
     this.state = {
       category: [],
-      //justClicked: null,
-    }
+      //category_id: [],
+       //justClicked: null,
+      //redirect: false
+    };
   }
+
+    /*setRedirect = () => {
+      this.setState({
+        redirect: true
+      })
+    };
   
-  handleClick(e) {
-    this.setState({
-      justClicked: e.target.dataset.articles
-    });
-  }
+
+    renderRedirect (){
+      if (this.state.redirect) {
+        return <Redirect to='/articles'/>
+      }
+    };
+
+
+*/
   
   componentDidMount(){
     axios.get('http://localhost:8000/category')
@@ -31,6 +45,7 @@ class Categorie extends Component {
       this.setState({ 
         category: response.data,
       });
+      console.log(this.props);
       
       console.log(response);
     })
@@ -39,63 +54,26 @@ class Categorie extends Component {
     })
   }  
   
-  
-  render() {  
-    
-    // integration du code dans une function 
-    /* function ListCategory(props) {
-      const category = props.category;
-      return (
-        <ul>
-        {props.category.map((categorie) =>
-          <li key={categorie.id}>
-          {categorie.title}
-          </li>
-          )}
-          </ul>
-          );
+      
+      render() {  
+        return (
           
-          return (
-            <div>
-            {category}
-            </div>
-            );
-          }
-          */
-          
-          
-          //code qui fonctionne mais pas dans une fonction 
-          /* return (
-            function List (props){
-              const category = props.category;
-              {this.state.category.map((categorie) => {
-                return (
-                  <li  key={categorie} onClick={() => this.handleClick(this.articless.id)}>
-                  {categorie.name}
-                  </li>
-                  )
-                })}
-              })
-            }
-          }
-          */
-          
-          
-          
-          return (
-            <div >
-            <p>Bienvenu sur Categorie</p>
-            {this.state.category.map((categorie) => {
-              return (
-                <li  key={categorie} onClick={() => this.handleClick(this.state.articles)}>
-                {categorie.name}{categorie.picture}
-                </li>
-                )
-              })}
+          <div >
+          <p>Bienvenu sur Categorie</p>
+          {this.state.category.map((categorie) => {
+            return (
+              <div>
+              <Link to={`/articles/${categorie.id}`}  key={categorie} >
+              {categorie.name}
+              </Link>
               </div>
               )
-            }
+    
+            })}
+            </div>
+            )
+            
           }
-          
+        } 
+export default Categorie;
         
-            export default Categorie;

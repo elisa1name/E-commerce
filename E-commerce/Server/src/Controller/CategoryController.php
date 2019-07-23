@@ -33,7 +33,7 @@ class CategoryController extends AbstractController
         $category = $repository->findBy(
             ['category' => $id]
         );
-        // dd($category);
+        //dd($category);
         
         return View::create($category, Response::HTTP_OK , []);
     }
