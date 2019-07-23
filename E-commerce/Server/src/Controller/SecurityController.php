@@ -129,23 +129,22 @@ class SecurityController extends AbstractController
         return $response; 
     }
 
-     /** 
+    /** 
     *@Route("/api/edit", name="api-edit")
     */
 
    
-    public function edit_user(Request $request,ObjectManager $manager, UserPasswordEncoderInterface $encoder): Response
+    public function editUser(Request $request,ObjectManager $manager, UserPasswordEncoderInterface $encoder): Response
     {
         $user = $this->getUser(); 
          $content = json_decode(
             $request->getContent(),true
         );
 
-         
+    
          
          $validator = Validation::createValidator();
        
-
         $constraint = new Assert\Collection(array(
             // the keys correspond to the keys in the input array
             'password' => new Assert\Length(array('min' => 3, 'minMessage'=>'Votre mot de passe doit contenir minimum 3 caracteres')),
@@ -162,8 +161,6 @@ class SecurityController extends AbstractController
             return new JsonResponse(["error" => (string)$violations], 500);
         }
        
- 
-        
         $email = $content['email'];
         $password = $content['password'];
         $name = $content['name'];
@@ -173,7 +170,6 @@ class SecurityController extends AbstractController
 
        
 
-       
         $user->setPassword($encoder->encodePassword($user, $password));
         $user->setEmail($email);
         $user->setName($name);
