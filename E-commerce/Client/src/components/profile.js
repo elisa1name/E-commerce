@@ -1,13 +1,12 @@
 import React,{Component} from 'react';
 import axios from 'axios';  
 import { Link } from 'react-router-dom';
-// import EditUser from './components/edit_user.js'
+import '../assets/profile.css';
 
 export default class Profile extends Component {
     constructor() {
         super()
         this.state = {
-            name : '',
             name : '',
             firstname : '', 
             email: '', 
@@ -17,6 +16,7 @@ export default class Profile extends Component {
     }
     
     componentDidMount() {
+        
         axios.get(`http://localhost:8000/api/profile`)
         .then(res => {
           console.log(res.data);
@@ -40,36 +40,39 @@ export default class Profile extends Component {
         const adress = this.state.adress !== null;  
         const telephone = this.state.telephone !== null;  
         return(
-            <div>
+            <div id="profile">
                 <h1 style={{textAlign: 'center'}}>Mon compte</h1>
 
                 <div style={{margin: '40px', padding:'50px'}}>
-                    <h3>Mes informations</h3>
+
+                    <Link class="butn" id="right" to="/editUser">Modifier les informations</Link>
+                    <h2>Mes informations</h2>
+
                     <div>
-                        <h5>Prénom :</h5> <p> {this.state.firstname} </p>
+                        <h4>Prénom :</h4> <p> {this.state.firstname} </p>
                     </div>
                     <div>
-                        <h5>Nom de famille :</h5> <p>{this.state.name} </p>
+                        <h4>Nom de famille :</h4> <p>{this.state.name} </p>
                     </div>
                     <div>
-                        <h5>Email :</h5> <p> {this.state.email} </p>
+                        <h4>Email :</h4> <p> {this.state.email} </p>
                     </div>
                     <div>
-                        <h5>Adresse :</h5>  
+                        <h4>Adresse :</h4>  
                         {adress ? (<p>{this.state.adress}</p>): (
                             <div> 
                                 <p style={{padding : "10px"}}>Veuillez complèter votre adresse</p>
                                 
-                                <Link to="/editUser">Modifier</Link>
+                                <Link class="butn"to="/editUser">Modifier</Link>
                             </div>
                         )}
                     </div>
                     <div>
-                        <h5> Téléphone :</h5> 
+                        <h4> Téléphone :</h4> 
                         {telephone ? (<p>{this.state.telephone}</p>): (
                             <div> 
                                 <p style={{padding : "10px"}}>Veuillez complèter votre numéro de téléphone</p>
-                                <Link to="/editUser">Modifier</Link>
+                                <Link class="butn" to="/editUser">Modifier</Link>
                             </div>
                         )}
                     </div>

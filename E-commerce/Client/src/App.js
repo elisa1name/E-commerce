@@ -43,7 +43,6 @@ class App extends React.Component {
         if (token) {
           config.headers.Authorization = `Bearer ${token}`
         }
-    
         return config;
       }, 
       (error) => {
@@ -60,7 +59,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-     //let result = this.child.current.isAuthenticated();
      let token = localStorage.getItem('token');
      if(token && token.length > 10) {
        this.setState({isAuthenticated: true }) 
