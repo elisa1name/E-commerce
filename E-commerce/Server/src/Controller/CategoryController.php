@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Article;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,19 +19,38 @@ use FOS\RestBundle\Controller\Annotations as FOSRest;
 
 class CategoryController extends AbstractController
 {
+    /**
+     * Lists all Articles.
+     * @FOSRest\Get("/category/{id}/article")
+     *
+     * @return array
+     */
+    public function getCategoryId(int $id)
+    {
+        $repository = $this->getDoctrine()->getRepository(Article::class);
+        
+        // query for a single Product by its primary key (usually "id")
+        $category = $repository->findBy(
+            ['category' => $id]
+        );
+        // dd($category);
+        
+        return View::create($category, Response::HTTP_OK , []);
+    }
+
      /**
      * Lists all Category.
      * @FOSRest\Get("/category")
      *
      * @return array
      */
-    public function getCategorysAction()
+    public function getCategorys()
     {
         $repository = $this->getDoctrine()->getRepository(Category::class);
         
         // query for a single Product by its primary key (usually "id")
         $category = $repository->findall();
-        
+        // dd($category);
         return View::create($category, Response::HTTP_OK , []);
     }
 
