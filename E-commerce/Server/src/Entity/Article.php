@@ -24,9 +24,9 @@ class Article
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $description;
+    private $picture;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="articles")
@@ -35,19 +35,13 @@ class Article
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Picture", mappedBy="article")
+     * @ORM\OneToMany(targetEntity="App\Entity\Produit", mappedBy="article")
      */
-    private $pictures;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Variants", mappedBy="article")
-     */
-    private $variants;
+    private $produits;
 
     public function __construct()
     {
-        $this->pictures = new ArrayCollection();
-        $this->variants = new ArrayCollection();
+        $this->produits = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -67,14 +61,14 @@ class Article
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getPicture(): ?string
     {
-        return $this->description;
+        return $this->picture;
     }
 
-    public function setDescription(string $description): self
+    public function setPicture(?string $picture): self
     {
-        $this->description = $description;
+        $this->picture = $picture;
 
         return $this;
     }
@@ -92,61 +86,30 @@ class Article
     }
 
     /**
-     * @return Collection|Picture[]
+     * @return Collection|Produit[]
      */
-    public function getPictures(): Collection
+    public function getProduits(): Collection
     {
-        return $this->pictures;
+        return $this->produits;
     }
 
-    public function addPicture(Picture $picture): self
+    public function addProduit(Produit $produit): self
     {
-        if (!$this->pictures->contains($picture)) {
-            $this->pictures[] = $picture;
-            $picture->setArticle($this);
+        if (!$this->produits->contains($produit)) {
+            $this->produits[] = $produit;
+            $produit->setArticle($this);
         }
 
         return $this;
     }
 
-    public function removePicture(Picture $picture): self
+    public function removeProduit(Produit $produit): self
     {
-        if ($this->pictures->contains($picture)) {
-            $this->pictures->removeElement($picture);
+        if ($this->produits->contains($produit)) {
+            $this->produits->removeElement($produit);
             // set the owning side to null (unless already changed)
-            if ($picture->getArticle() === $this) {
-                $picture->setArticle(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Variants[]
-     */
-    public function getVariants(): Collection
-    {
-        return $this->variants;
-    }
-
-    public function addVariant(Variants $variant): self
-    {
-        if (!$this->variants->contains($variant)) {
-            $this->variants[] = $variant;
-            $variant->setArticle($this);
-        }
-
-        return $this;
-    }
-
-    public function removeVariant(Variants $variant): self
-    {
-        if ($this->variants->contains($variant)) {
-            $this->variants->removeElement($variant);
-            // set the owning side to null (unless already changed)
-            if ($variant->getArticle() === $this) {
-                $variant->setArticle(null);
+            if ($produit->getArticle() === $this) {
+                $produit->setArticle(null);
             }
         }
 

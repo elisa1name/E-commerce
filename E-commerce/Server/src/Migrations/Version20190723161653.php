@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190717162728 extends AbstractMigration
+final class Version20190723161653 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,8 @@ final class Version20190717162728 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE category ADD picture VARCHAR(255) DEFAULT NULL');
+        $this->addSql('CREATE TABLE picture_produit (id INT AUTO_INCREMENT NOT NULL, produit_id INT NOT NULL, name JSON DEFAULT NULL, INDEX IDX_348318F5F347EFB (produit_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE picture_produit ADD CONSTRAINT FK_348318F5F347EFB FOREIGN KEY (produit_id) REFERENCES produit (id)');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +31,6 @@ final class Version20190717162728 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE category DROP picture');
+        $this->addSql('DROP TABLE picture_produit');
     }
 }

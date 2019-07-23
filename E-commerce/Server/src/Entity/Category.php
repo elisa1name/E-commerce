@@ -24,14 +24,14 @@ class Category
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="category")
-     */
-    private $articles;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $picture;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="category")
+     */
+    private $articles;
 
     public function __construct()
     {
@@ -51,6 +51,18 @@ class Category
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }
@@ -82,18 +94,6 @@ class Category
                 $article->setCategory(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(?string $picture): self
-    {
-        $this->picture = $picture;
 
         return $this;
     }
