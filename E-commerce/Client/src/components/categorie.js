@@ -66,6 +66,7 @@ class Categorie extends Component {
               <Link to={`/articles/${categorie.id}`}  key={categorie} >
               {categorie.name}
               </Link>
+              <img src={categorie.picture} alt="indisponible image"/>
               </div>
               )
     
