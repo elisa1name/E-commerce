@@ -12,13 +12,13 @@ export default class Edit_user extends Component {
         super(props);
 
         this.state = {
-            firstname,
-            name,
-            email,
-            password,
-            newpassword,
-            adress,
-            telephone,
+            firstname:"",
+            name:"",
+            email:"",
+            password:"",
+            newpassword:"",
+            adress:"",
+            telephone:"",
             isSignin: true // <-- initialize the signup state as false
         };
     }

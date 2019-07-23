@@ -1,4 +1,4 @@
-import React from 'react';
+
 import Navbar from './components/navbar.js';
 import Search from './components/search.js';
 import Login from './components/login.js';
@@ -39,10 +39,12 @@ class App extends React.Component {
     axios.interceptors.request.use(
       (config) => {
         let token = localStorage.getItem('token');
-    
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`
+        if (token && token.length > 10) {
+            this.setState({ isAuthenticated: true })
+        } else {
+            this.setState({ isAuthenticated: false })
         }
+    
         return config;
       }, 
       (error) => {
@@ -59,6 +61,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+     //let result = this.child.current.isAuthenticated();
      let token = localStorage.getItem('token');
      if(token && token.length > 10) {
        this.setState({isAuthenticated: true }) 
@@ -79,7 +82,7 @@ class App extends React.Component {
     this.setState({isAuthenticated: false})
     localStorage.removeItem('token');
    }
-   
+ 
   render() {
     return  (
       <BrowserRouter>
