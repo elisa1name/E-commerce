@@ -1,0 +1,8 @@
+.imagess{
+   float: left;
+   margin-left: 20px;
+}
+
+.imagess:hover{
+    color: blue;
+ }

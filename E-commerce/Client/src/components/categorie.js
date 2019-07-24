@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
+import '../assets/categorie.css';
 import { AxiosProvider, Request, Get, Delete, Head, Post, Put, Patch, withAxios, } from 'react-axios';
 import axios from 'axios';
 import PropTypes from "prop-types";
@@ -16,28 +17,9 @@ class Categorie extends Component {
     //this.id = id;
     this.state = {
       category: [],
-      //category_id: [],
-       //justClicked: null,
-      //redirect: false
     };
   }
 
-    /*setRedirect = () => {
-      this.setState({
-        redirect: true
-      })
-    };
-  
-
-    renderRedirect (){
-      if (this.state.redirect) {
-        return <Redirect to='/articles'/>
-      }
-    };
-
-
-*/
-  
   componentDidMount(){
     axios.get('http://localhost:8000/category')
     .then(response => {
@@ -54,27 +36,27 @@ class Categorie extends Component {
     })
   }  
   
+  
+  render() {  
+    return (
       
-      render() {  
+      <div >
+      <p>Bienvenu sur Categorie</p>
+      {this.state.category.map((categorie) => {
         return (
+          <div>
+          <Link to={`/articles/${categorie.id}`} style={{color: '#20B2AA', textDecoration: 'none'}} key={categorie} >
+          {categorie.name}
+          </Link>
+          <img  className="imagess" src={categorie.picture} alt="indisponible image" width="400px" height="250px"/>
+          </div>
+          )
           
-          <div >
-          <p>Bienvenu sur Categorie</p>
-          {this.state.category.map((categorie) => {
-            return (
-              <div>
-              <Link to={`/articles/${categorie.id}`}  key={categorie} >
-              {categorie.name}
-              </Link>
-              <img src={categorie.picture} alt="indisponible image"/>
-              </div>
-              )
-    
-            })}
-            </div>
-            )
-            
-          }
-        } 
-export default Categorie;
+        })}
+        </div>
+        )
         
+      }
+    } 
+    export default Categorie;
+    

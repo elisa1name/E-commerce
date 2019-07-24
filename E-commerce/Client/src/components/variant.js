@@ -7,12 +7,12 @@ import TableRow from '@material-ui/core/TableRow';
 import ReactList from 'react-list';
 import { BrowserRouter, Link, Route } from 'react-router-dom';
 
-class Articles extends Component {
+class Variant extends Component {
   
   constructor(props) {
     super(props);
     this.state = {
-      articles: [],
+     variant: [],
       id: this.props.match.params.id
     }
   }
@@ -20,11 +20,11 @@ class Articles extends Component {
   
   componentDidMount(){
     //console.log("here", this.state.id);
-    axios.get(`http://localhost:8000/category/${this.state.id}/article`)
+    axios.get(`http://localhost:8000/produit/${this.state.id}/variant`)
     .then(response => {
       console.log("data", response.data);
       this.setState({ 
-        articles: response.data });
+        variant: response.data });
         
         //console.log(response);
       })
@@ -36,29 +36,16 @@ class Articles extends Component {
     
     render() {
       return (
-       /* <div >
-          <p>Bienvenu sur Articles</p>
-          {this.state.articles.map((articless) => {
-            return (
-              <li>{articless.name}</li> 
-            )
-          })}
-          
-        </div>
-      )
-    }
-}
-      */
        
      <div >
-     <p>Voici tous les articles qu'on vous propose dans la selection choisi</p>
-     {this.state.articles.map((articless) =>{
+     <p>Faite votre choix</p>
+     {this.state.variant.map((variante) =>{
        return (
          <div>
-         <Link to={`/produit/${articless.id}`} style={{color: '#20B2AA', textDecoration: 'none'}} key={articless} >
-         {articless.name}
+         <Link to={`/variant/${variante.id}`} style={{color: '#20B2AA', textDecoration: 'none'}} key={variante} >
+         {variante.name}
          </Link>
-         <img  className="imagess" src={articless.picture} alt="indisponible image" width="350px" height="250px"/>
+         <img  src={variante.picture} alt="indisponible image" width="350px" height="250px"/>
          </div>
          )
          
@@ -68,4 +55,4 @@ class Articles extends Component {
        
      }
    } 
-      export default Articles;
+      export default Variant;
