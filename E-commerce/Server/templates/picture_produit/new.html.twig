@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New PictureProduit{% endblock %}
+
+{% block body %}
+    <h1>Create new PictureProduit</h1>
+
+    {{ include('picture_produit/_form.html.twig') }}
+
+    <a href="{{ path('picture_produit_index') }}">back to list</a>
+{% endblock %}
