@@ -78,9 +78,6 @@ export default class Edit_user extends Component {
                 alert("Données Modifier avec succès !");
                 console.log(res.data);
 
-
-
-
             })
             .catch(error => {
                 console.log(error)
@@ -92,7 +89,6 @@ export default class Edit_user extends Component {
 
 
     render() {
-        console.log(this.props.email)
         if (this.state.isModify) {
             return <Redirect to={{ pathname: "/moncompte" }} />;
         } else {

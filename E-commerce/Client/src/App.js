@@ -22,6 +22,7 @@ import Contact from './components/contact.js';
 import Conditions from './components/conditions.js';
 import Protection from './components/protection.js';
 import Aide from './components/aide.js';
+import Admin from './components/admin/users.js'
 import Centres from './components/centres.js';
 import Footer from './components/footer.js';
 import axios from 'axios';
@@ -38,6 +39,8 @@ class App extends React.Component {
             email: '',
             adress: '',
             telephone: '',
+            roles: '',
+            isAdmin: false,
         }
         this.changeData = this.changeData.bind(this)
 
@@ -81,11 +84,20 @@ class App extends React.Component {
                 this.setState({ email: res.data.email })
                 this.setState({ adress: res.data.adress })
                 this.setState({ telephone: res.data.telephone })
+                this.setState({ roles: res.data.roles })
+                console.log(this.state.roles[0])
+
+                if (this.state.roles[0] === "ROLE_ADMIN") {
+                    this.setState({ isAdmin: true })
+
+                }
+
             })
             .catch(error => {
                 console.log(error)
             });
     }
+
 
     handleLogout = () => {
         this.setState({ isAuthenticated: false })
@@ -111,18 +123,24 @@ class App extends React.Component {
                                     <Tooltip content="Profile" placement="bottom" background="rgb(53, 56, 47)" color="#FFF">
                                         <Link style={{ marginRight: "15px" }} to="/moncompte" ><img src={Profil} widht="100" height="50" alt="profil" /></Link>
                                     </Tooltip>
+                                    {this.state.isAdmin && (
+                                        <Tooltip content="admin" placement="bottom" background="rgb(53, 56, 47)" color="#FFF">
+                                            <Link style={{ marginRight: "15px" }} to="/admin/users" ><img src={Profil} widht="100" height="50" alt="profil" /></Link>
+                                        </Tooltip>
 
-
+                                    )}
                                     <Tooltip content="Deconnexion" placement="bottom" background="rgb(53, 56, 47)" color="#FFF">
                                         <Link onClick={this.handleLogout} to="/" ><img src={logout} widht="100" height="50" alt="deconnexion" /></Link>
                                     </Tooltip>
                                 </li>
+
                             ) : (
                                     <li class="nav-item">
                                         <Tooltip content="Login/Register" placement="bottom" background="rgb(53, 56, 47)" border="#000" color="#fff">
                                             <Link to="/auth" ><img src={Profil} widht="100" height="50" alt="profil" /></Link>
                                         </Tooltip>
                                     </li>
+
                                 )}
 
                             <li class="nav-item">
@@ -158,6 +176,7 @@ class App extends React.Component {
                             <div>
                                 <Route path="/moncompte" component={Profile} />
                                 <Route path="/editUser" component={EditUser} name={this.state.name} firstname={this.state.firstname} email={this.state.email} adress={this.state.adress} telephone={this.state.telephone} />
+                                <Route path="/admin/users" component={Admin} />
 
                             </div>
                         )
