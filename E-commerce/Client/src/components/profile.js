@@ -7,11 +7,11 @@ export default class Profile extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name : '',
-            firstname : '', 
-            email: '', 
-            adress:'', 
-            telephone: '', 
+            name: '',
+            firstname: '',
+            email: '',
+            adress: '',
+            telephone: '',
         }
     }
 
@@ -48,15 +48,15 @@ export default class Profile extends Component {
                 <div style={{ margin: '40px', padding: '50px' }}>
 
                     <Link class="butn" id="right" to={{
-                        pathname:"/editUser",
-                        aboutProps:{
-                            name:this.state.name,
-                            firstname: this.state.firstname, 
+                        pathname: "/editUser",
+                        aboutProps: {
+                            name: this.state.name,
+                            firstname: this.state.firstname,
                             email: this.state.email,
-                            adress:this.state.adress,
-                            telephone:this.state.telephone,
+                            adress: this.state.adress,
+                            telephone: this.state.telephone,
                         }
-                        }}>Modifier les informations</Link>
+                    }}>Modifier les informations</Link>
                     <h2>Mes informations</h2>
 
                     <div>
@@ -69,38 +69,38 @@ export default class Profile extends Component {
                         <h4>Email :</h4> <p> {this.state.email} </p>
                     </div>
                     <div>
-                        <h4>Adresse :</h4>  
-                        {adress ? (<p>{this.state.adress}</p>): (
-                            <div> 
-                                <p style={{padding : "10px"}}>Veuillez complèter votre adresse</p>
-                                
+                        <h4>Adresse :</h4>
+                        {adress ? (<p>{this.state.adress}</p>) : (
+                            <div>
+                                <p style={{ padding: "10px" }}>Veuillez complèter votre adresse</p>
+
                                 <Link class="butn" to={{
-                                    pathname:"/editUser",
-                                    aboutProps:{
-                                    name:this.state.name,
-                                    firstname: this.state.firstname, 
-                                    email: this.state.email,
-                                    adress:this.state.adress,
-                                    telephone:this.state.telephone,
-                        } 
-                     }} >Modifier</Link>
+                                    pathname: "/editUser",
+                                    aboutProps: {
+                                        name: this.state.name,
+                                        firstname: this.state.firstname,
+                                        email: this.state.email,
+                                        adress: this.state.adress,
+                                        telephone: this.state.telephone,
+                                    }
+                                }} >Modifier</Link>
                             </div>
                         )}
                     </div>
                     <div>
-                        <h4> Téléphone :</h4> 
-                        {telephone ? (<p>{this.state.telephone}</p>): (
-                            <div> 
-                                <p style={{padding : "10px"}}>Veuillez complèter votre numéro de téléphone</p>
+                        <h4> Téléphone :</h4>
+                        {telephone ? (<p>{this.state.telephone}</p>) : (
+                            <div>
+                                <p style={{ padding: "10px" }}>Veuillez complèter votre numéro de téléphone</p>
                                 <Link class="butn" to={{
-                                    pathname:"/editUser",
-                                    aboutProps:{
-                                    name:this.state.name,
-                                    firstname: this.state.firstname, 
-                                    email: this.state.email,
-                                    adress:this.state.adress,
-                                    telephone:this.state.telephone,
-                        } 
+                                    pathname: "/editUser",
+                                    aboutProps: {
+                                        name: this.state.name,
+                                        firstname: this.state.firstname,
+                                        email: this.state.email,
+                                        adress: this.state.adress,
+                                        telephone: this.state.telephone,
+                                    }
                                 }} >Modifier</Link>
                             </div>
                         )}

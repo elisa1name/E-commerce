@@ -33,11 +33,11 @@ class App extends React.Component {
         super(props);
         this.state = {
             isAuthenticated: null,
-            name : '',
-            firstname : '', 
-            email: '', 
-            adress:'', 
-            telephone: '', 
+            name: '',
+            firstname: '',
+            email: '',
+            adress: '',
+            telephone: '',
         }
         this.changeData = this.changeData.bind(this)
 
@@ -76,11 +76,11 @@ class App extends React.Component {
         axios.get(`http://localhost:8000/api/profile`)
             .then(res => {
                 console.log(res.data);
-                this.setState({name: res.data.name})
-                this.setState({firstname: res.data.firstname})
-                this.setState({email: res.data.email})
-                this.setState({adress: res.data.adress})
-                this.setState({telephone: res.data.telephone})
+                this.setState({ name: res.data.name })
+                this.setState({ firstname: res.data.firstname })
+                this.setState({ email: res.data.email })
+                this.setState({ adress: res.data.adress })
+                this.setState({ telephone: res.data.telephone })
             })
             .catch(error => {
                 console.log(error)
@@ -157,7 +157,8 @@ class App extends React.Component {
                         {this.state.isAuthenticated && (
                             <div>
                                 <Route path="/moncompte" component={Profile} />
-                                <Route path="/editUser" component={EditUser} />
+                                <Route path="/editUser" component={EditUser} name={this.state.name} firstname={this.state.firstname} email={this.state.email} adress={this.state.adress} telephone={this.state.telephone} />
+
                             </div>
                         )
                         }

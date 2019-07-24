@@ -147,6 +147,7 @@ class SecurityController extends AbstractController
        
         $constraint = new Assert\Collection(array(
             // the keys correspond to the keys in the input array
+        
             'password' => new Assert\Length(array('min' => 3, 'minMessage'=>'Votre mot de passe doit contenir minimum 3 caracteres')),
             'email' => new Assert\Email(array('message'=> 'Votre email est incorrect')),
             'firstname' => new Assert\Length(array('min' => 2, 'minMessage'=>'Votre prenom doit contenir minimum 2 caracteres')),
@@ -162,13 +163,13 @@ class SecurityController extends AbstractController
         }
        
         $email = $content['email'];
-        $password = $content['password'];
+     
         $name = $content['name'];
         $firstname = $content['firstname'];
         $adress= $content['adress'];
         $telephone =$content['telephone'];
+        $password = $content['password'];
 
-       
 
         $user->setPassword($encoder->encodePassword($user, $password));
         $user->setEmail($email);
