@@ -1,5 +1,5 @@
-import React,{Component} from 'react';
-import axios from 'axios';  
+import React, { Component } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../assets/profile.css';
 
@@ -14,36 +14,38 @@ export default class Profile extends Component {
             telephone: '', 
         }
     }
-    
+
     componentDidMount() {
-        
+
         axios.get(`http://localhost:8000/api/profile`)
-        .then(res => {
-          console.log(res.data);
-          this.setState({name: res.data.name})
-          this.setState({firstname: res.data.firstname})
-          this.setState({email: res.data.email})
-          this.setState({adress: res.data.adress})
-          this.setState({telephone: res.data.telephone})
-        })
-        .catch(error => {
-            console.log(error)
-        })
+            .then(res => {
+                console.log(res.data);
+                this.setState({ name: res.data.name })
+                this.setState({ firstname: res.data.firstname })
+                this.setState({ email: res.data.email })
+                this.setState({ adress: res.data.adress })
+                this.setState({ telephone: res.data.telephone })
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
-    isAuthenticated(){
-        const token = localStorage.getItem('token'); 
+    isAuthenticated() {
+        const token = localStorage.getItem('token');
         return token && token.length > 10;
     }
 
-    render(){
-        const adress = this.state.adress !== null;  
-        const telephone = this.state.telephone !== null;  
-        return(
-            <div id="profile">
-                <h1 style={{textAlign: 'center'}}>Mon compte</h1>
+    render() {
+        const adress = this.state.adress !== null;
+        const telephone = this.state.telephone !== null;
+        console.log(this.props)
 
-                <div style={{margin: '40px', padding:'50px'}}>
+        return (
+            <div id="profile">
+                <h1 style={{ textAlign: 'center' }}>Mon compte</h1>
+
+                <div style={{ margin: '40px', padding: '50px' }}>
 
                     <Link class="butn" id="right" to={{
                         pathname:"/editUser",

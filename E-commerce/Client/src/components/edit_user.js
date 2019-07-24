@@ -76,7 +76,7 @@ export default class Edit_user extends Component {
 
 
     render() {
-        console.log(this.props)
+        console.log(this.props.email)
         return (
             <div id="editUser">
                 <h1>Modifier mes données</h1>
