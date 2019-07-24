@@ -44,10 +44,16 @@ class Produit
      */
     private $pictureProduits;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Stock", mappedBy="produit")
+     */
+    private $stocks;
+
     public function __construct()
     {
         $this->variants = new ArrayCollection();
         $this->pictureProduits = new ArrayCollection();
+        $this->stocks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -145,6 +151,34 @@ class Produit
             if ($pictureProduit->getProduit() === $this) {
                 $pictureProduit->setProduit(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Stock[]
+     */
+    public function getStocks(): Collection
+    {
+        return $this->stocks;
+    }
+
+    public function addStock(Stock $stock): self
+    {
+        if (!$this->stocks->contains($stock)) {
+            $this->stocks[] = $stock;
+            $stock->addProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStock(Stock $stock): self
+    {
+        if ($this->stocks->contains($stock)) {
+            $this->stocks->removeElement($stock);
+            $stock->removeProduit($this);
         }
 
         return $this;
