@@ -10,6 +10,8 @@ import Articles from '../components/articles.js';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Link, Route } from 'react-router-dom';
 
+
+
 class Categorie extends Component {
   
   constructor(props, id) {
@@ -19,7 +21,7 @@ class Categorie extends Component {
       category: [],
     };
   }
-
+  
   componentDidMount(){
     axios.get('http://localhost:8000/category')
     .then(response => {
@@ -39,19 +41,17 @@ class Categorie extends Component {
   
   render() {  
     return (
-      
       <div >
-      <p>Bienvenu sur Categorie</p>
+      <div className="titre"><p className="test">Categorie</p></div>
       {this.state.category.map((categorie) => {
         return (
           <div>
-          <Link to={`/articles/${categorie.id}`} style={{color: '#20B2AA', textDecoration: 'none'}} key={categorie} >
-          {categorie.name}
+          <Link to={`/articles/${categorie.id}`}  style={{color: '#20B2AA', textDecoration: 'none'}} key={categorie} >
+          <img  className="imagess" src={categorie.picture} alt="indisponible image" width="400px" height="250px" />
+             <div className="">{categorie.name}</div>
           </Link>
-          <img  className="imagess" src={categorie.picture} alt="indisponible image" width="400px" height="250px"/>
           </div>
           )
-          
         })}
         </div>
         )
