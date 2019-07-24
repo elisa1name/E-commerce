@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 import '../assets/profile.css';
 
 export default class Profile extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             name : '',
             firstname : '', 
             email: '', 
-            adress:null, 
-            telephone: null, 
+            adress:'', 
+            telephone: '', 
         }
     }
     
@@ -45,7 +45,16 @@ export default class Profile extends Component {
 
                 <div style={{margin: '40px', padding:'50px'}}>
 
-                    <Link class="butn" id="right" to="/editUser">Modifier les informations</Link>
+                    <Link class="butn" id="right" to={{
+                        pathname:"/editUser",
+                        aboutProps:{
+                            name:this.state.name,
+                            firstname: this.state.firstname, 
+                            email: this.state.email,
+                            adress:this.state.adress,
+                            telephone:this.state.telephone,
+                        }
+                        }}>Modifier les informations</Link>
                     <h2>Mes informations</h2>
 
                     <div>
@@ -63,7 +72,16 @@ export default class Profile extends Component {
                             <div> 
                                 <p style={{padding : "10px"}}>Veuillez complèter votre adresse</p>
                                 
-                                <Link class="butn"to="/editUser">Modifier</Link>
+                                <Link class="butn" to={{
+                                    pathname:"/editUser",
+                                    aboutProps:{
+                                    name:this.state.name,
+                                    firstname: this.state.firstname, 
+                                    email: this.state.email,
+                                    adress:this.state.adress,
+                                    telephone:this.state.telephone,
+                        } 
+                     }} >Modifier</Link>
                             </div>
                         )}
                     </div>
@@ -72,7 +90,16 @@ export default class Profile extends Component {
                         {telephone ? (<p>{this.state.telephone}</p>): (
                             <div> 
                                 <p style={{padding : "10px"}}>Veuillez complèter votre numéro de téléphone</p>
-                                <Link class="butn" to="/editUser">Modifier</Link>
+                                <Link class="butn" to={{
+                                    pathname:"/editUser",
+                                    aboutProps:{
+                                    name:this.state.name,
+                                    firstname: this.state.firstname, 
+                                    email: this.state.email,
+                                    adress:this.state.adress,
+                                    telephone:this.state.telephone,
+                        } 
+                                }} >Modifier</Link>
                             </div>
                         )}
                     </div>

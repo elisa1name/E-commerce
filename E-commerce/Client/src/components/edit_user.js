@@ -11,21 +11,27 @@ export default class Edit_user extends Component {
     constructor(props) {
         super(props);
 
+        const dataProps = props.location.aboutProps;
+
+        console.log(dataProps);
+
         this.state = {
-            firstname:"",
-            name:"",
-            email:"",
+            firstname:dataProps.firstname,
+            name:dataProps.name,
+            email:dataProps.email,
             password:"",
             newpassword:"",
-            adress:"",
-            telephone:"",
+            adress:dataProps.adress,
+            telephone:dataProps.telephone,
             isSignin: true // <-- initialize the signup state as false
         };
+        
+        console.log(props.location.aboutProps); 
     }
 
     validateForm() {
         return (this.state.firstname.length > 0
-            && this.state.name.length > 0 && this.state.email.length > 0 && this.state.password.length > 0 && this.state.adress.length > 0 && this.state.telephone.length == 10);
+            && this.state.name.length > 0 && this.state.email.length > 0 && this.state.password.length > 0);
     }
 
     handleChange = event => {
@@ -151,9 +157,6 @@ export default class Edit_user extends Component {
                             
                         />
                     </FormGroup>
-
-                    
-
 
                         <Button
                             className="button"

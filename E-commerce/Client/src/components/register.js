@@ -57,7 +57,7 @@ class Register extends Component {
 
   render() {
     if (this.state.isSignedUp) {
-      return <Redirect to = {{ pathname: "/home" }} />;
+      return <Redirect to = {{ pathname: "/auth" }} />;
     }else{
     return (
       <div id="register">
