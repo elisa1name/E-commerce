@@ -4,26 +4,29 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use FOS\RestBundle\View\View;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use FOS\RestBundle\Controller\Annotations as FOSRest;
 
-/**
- * @Route("/user")
- */
+
 class UserController extends AbstractController
 {
     /**
-     * @Route("/", name="user_index", methods={"GET"})
+     * @FOSRest\Get("api/admin/users")
+     * 
      */
-    public function index(UserRepository $userRepository): Response
+    public function allUsers()
     {
-        return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
-        ]);
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $users =  $repository->findAll();
+
+        return View::create($users, Response::HTTP_OK , []);
+      
     }
 
     /**
@@ -98,3 +101,4 @@ class UserController extends AbstractController
         return $this->redirectToRoute('user_index');
     }
 }
+
