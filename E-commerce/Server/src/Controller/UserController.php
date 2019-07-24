@@ -142,17 +142,15 @@ class UserController extends AbstractController
     }
     
     /**
-     * @Route("/{id}", name="user_delete", methods={"DELETE"})
+     * @FOSRest\Delete("api/admin/users/{id}")
      */
-    public function delete(Request $request, User $user): Response
+    public function delete(Request $request, User $user)
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($user);
-            $entityManager->flush();
-        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($user);
+        $entityManager->flush();
 
-        return $this->redirectToRoute('user_index');
+        return View::create(["success" => $user->getEmail(). " est supprimé"], Response::HTTP_OK , []);
     }
 }
 
