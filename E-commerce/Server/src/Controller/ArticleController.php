@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Produit;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Form\ArticleType;
@@ -19,6 +20,24 @@ use FOS\RestBundle\Controller\Annotations as FOSRest;
 
 class ArticleController extends AbstractController
 {
+    /**
+     * Lists all Produit.
+     * @FOSRest\Get("/article/{id}/produit")
+     *
+     * @return array
+     */
+    public function getProduits(int $id)
+    {
+        $repository = $this->getDoctrine()->getRepository(Produit::class);
+        
+        // query for a single Product by its primary key (usually "id")
+        $article = $repository->findBy(
+            ['article' => $id]
+        );
+        
+        return View::create($article, Response::HTTP_OK , []);
+    }
+
      /**
      * Lists all Articles.
      * @FOSRest\Get("/article")
@@ -63,7 +82,7 @@ class ArticleController extends AbstractController
         //idée je instance category select where $id = id category
         $article = new Article();
         $article->setName($request->get('name'));
-        $article->setDescription($request->get('description'));
+        $article->setPictire($request->get('picture'));
         $article->setCategory($request->get('category'));
         $em = $this->getDoctrine()->getManager();
         $em->persist($article);
