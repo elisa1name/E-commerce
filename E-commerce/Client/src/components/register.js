@@ -1,4 +1,3 @@
-    this.state = {
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import '../assets/register.css';
