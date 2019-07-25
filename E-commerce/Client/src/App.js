@@ -23,6 +23,7 @@ import Conditions from './components/conditions.js';
 import Protection from './components/protection.js';
 import Aide from './components/aide.js';
 import Admin from './components/admin/users.js'
+import AdminUsersNew from './components/admin/new.js'
 import Centres from './components/centres.js';
 import Footer from './components/footer.js';
 import axios from 'axios';
@@ -74,7 +75,7 @@ class App extends React.Component {
             this.setState({ isAuthenticated: false })
         }
 
-       
+
         axios.get(`http://localhost:8000/api/profile`)
             .then(res => {
                 console.log(res.data);
@@ -88,7 +89,7 @@ class App extends React.Component {
 
                 if (this.state.roles[0] === "ROLE_ADMIN") {
                     this.setState({ isAdmin: true })
-                    
+
                 } else {
                     this.setState({ isAdmin: false })
                 }
@@ -178,8 +179,12 @@ class App extends React.Component {
                             <div>
                                 <Route path="/moncompte" component={Profile} />
                                 <Route path="/editUser" component={EditUser} name={this.state.name} firstname={this.state.firstname} email={this.state.email} adress={this.state.adress} telephone={this.state.telephone} />
+
                                 {this.state.isAdmin && (
-                                <Route path="/admin/users" component={Admin} />
+                                    <div>
+                                        <Route path="/admin/users" component={Admin} />
+                                        <Route path="/admin/users/new" component={AdminUsersNew} />
+                                    </div>
                                 )}
                             </div>
                         )

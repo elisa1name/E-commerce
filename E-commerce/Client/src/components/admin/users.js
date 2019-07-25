@@ -28,19 +28,33 @@ export default class Users extends Component {
     render() {
         const users = this.state.users
         return (
+
             <div>
+
                 <h1 style={{ textAlign: 'center' }}>UserList</h1>
-                <ul>
-                    {users.map(item => (
-                        <li key={item.id}>
-                            <div>{item.id}</div>
-                            <div>{item.firstname}</div>
-                            <div>{item.name}</div>
-                            <div>{item.adress}</div>
-                            <div>{item.telephone}</div>
-                        </li>
-                    ))}
-                </ul>
+
+                <div>
+                    <Link class="butn" id="right" to={{
+                        pathname: "/admin/users/new",
+
+                    }}>Creer un user</Link>
+                </div>
+                <div style={{ margin: '40px', padding: '50px' }}>
+                    <ul>
+                        {users.map(item => (
+                            <li key={item.id}>
+                                <div>{item.id}</div>
+                                <div>{item.firstname}</div>
+                                <div>{item.name}</div>
+                                <div>{item.adress}</div>
+                                <div>{item.telephone}</div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+
+
 
 
             </div>
