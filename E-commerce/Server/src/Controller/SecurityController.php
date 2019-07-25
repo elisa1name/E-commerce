@@ -140,10 +140,8 @@ class SecurityController extends AbstractController
          $content = json_decode(
             $request->getContent(),true
         );
-
-    
          
-         $validator = Validation::createValidator();
+        $validator = Validation::createValidator();
        
         $constraint = new Assert\Collection(array(
             // the keys correspond to the keys in the input array

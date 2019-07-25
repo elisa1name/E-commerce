@@ -169,7 +169,6 @@ export default class Edit_user extends Component {
                                 value={this.state.telephone}
                                 onChange={this.handleChange}
                                 type="number"
-
                             />
                         </FormGroup>
 
@@ -179,12 +178,8 @@ export default class Edit_user extends Component {
                             bsSize="large"
                             disabled={!this.validateForm()}
                             type="submit"
-
-
                         >
                             Valider
-
-
                         </Button>
 
 
