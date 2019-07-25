@@ -27,7 +27,6 @@ import Centres from './components/centres.js';
 import Footer from './components/footer.js';
 import axios from 'axios';
 
-
 class App extends React.Component {
 
     constructor(props) {
@@ -59,7 +58,6 @@ class App extends React.Component {
                 return Promise.reject(error);
             }
         );
-
     }
 
     changeData(data) {
@@ -76,6 +74,7 @@ class App extends React.Component {
             this.setState({ isAuthenticated: false })
         }
 
+       
         axios.get(`http://localhost:8000/api/profile`)
             .then(res => {
                 console.log(res.data);
@@ -89,7 +88,9 @@ class App extends React.Component {
 
                 if (this.state.roles[0] === "ROLE_ADMIN") {
                     this.setState({ isAdmin: true })
-
+                    
+                } else {
+                    this.setState({ isAdmin: false })
                 }
 
             })
@@ -101,6 +102,7 @@ class App extends React.Component {
 
     handleLogout = () => {
         this.setState({ isAuthenticated: false })
+        this.setState({ isAdmin: false });
         localStorage.removeItem('token');
     }
 
@@ -176,8 +178,9 @@ class App extends React.Component {
                             <div>
                                 <Route path="/moncompte" component={Profile} />
                                 <Route path="/editUser" component={EditUser} name={this.state.name} firstname={this.state.firstname} email={this.state.email} adress={this.state.adress} telephone={this.state.telephone} />
+                                {this.state.isAdmin && (
                                 <Route path="/admin/users" component={Admin} />
-
+                                )}
                             </div>
                         )
                         }
