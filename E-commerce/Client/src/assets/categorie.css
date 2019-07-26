@@ -20,15 +20,20 @@
 
  
   .titre{
-     border: 2px solid black;
-     width: 221px;
+     border: 2px solid white;
+     width: 212px;
      height: 761px;
      float: left;
-     background-color: black;
+     background-color: #20B2AA;
   }
 
   .test{
-   color: blue;
+   color: white;
    transform: rotate(90deg); 
+   font-family: 'Valentine,Arial,sans-serif';
+   font-weight: 400;
+   font-style: italic;
+   margin-top: 20px;
    font-size: 100px;
+   margin-top: 200px;
   }

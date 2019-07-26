@@ -37,7 +37,7 @@ class Articles extends Component {
     render() {
       return (      
      <div >
-     <p>Voici tous les articles qu'on vous propose dans la selection choisi</p>
+       <div className="titre"><p className="test">Articles</p></div>
      {this.state.articles.map((articless) =>{
        return (
          <div>
