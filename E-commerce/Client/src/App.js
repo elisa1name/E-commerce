@@ -1,4 +1,6 @@
 import React from 'react';
+import "react-responsive-carousel/lib/styles/carousel.css";
+import { Carousel } from 'react-responsive-carousel';
 import Navbar from './components/navbar.js';
 import Search from './components/search.js';
 import Login from './components/login.js';
@@ -15,6 +17,7 @@ import logout from './assets/logout.png';
 import './App.css';
 import Contenu from './components/contenu.js';
 import Categorie from './components/categorie.js';
+import Articles from './components/articles.js';
 import Nouveauté from './components/nouveauté.js';
 import Coeur from './components/coeur.js';
 import Profile from './components/profile.js';
@@ -25,8 +28,17 @@ import Aide from './components/aide.js';
 import Admin from './components/admin/users.js'
 import AdminUsersNew from './components/admin/new.js'
 import Centres from './components/centres.js';
+import Produit from './components/produit.js';
+import Variant from './components/variant.js';
 import Footer from './components/footer.js';
 import axios from 'axios';
+import { AxiosProvider, Request, Get, Delete, Head, Post, Put, Patch, withAxios, } from 'react-axios';
+import PropTypes from "prop-types";
+import TableRow from '@material-ui/core/TableRow';
+import jpgVue1 from './assets/vue1.jpg';
+import jpgVue2 from './assets/vue2.jpg';
+import jpgVue3 from './assets/vue3.jpg';
+
 
 class App extends React.Component {
 
@@ -162,9 +174,14 @@ class App extends React.Component {
                     <hr />
                     <div className="main-route-place">
                         <Route exact path="/" component={Home} />
+                        <Route path="/profil" component={Login} />
+                        <Route path="/profil" component={Register} />
                         <Route path="/Infos" component={Infos} />
                         <Route path="/panier" component={Panier} />
                         <Route path="/categorie" component={Categorie} />
+                        <Route path="/articles/:id" component={Articles} />
+                        <Route path="/produit/:id" component={Produit} />
+                        <Route path="/variant/:id" component={Variant} />
                         <Route path="/nouveauté" component={Nouveauté} />
                         <Route path="/coeur" component={Coeur} />
                         <Route path="/contact" component={Contact} />
@@ -221,16 +238,63 @@ class Infos extends React.Component {
     }
 }
 
-class Panier extends React.Component {
-    render() {
-        return (
-            <div>
-                <Search />
-                <h1> La partie pannier </h1>
-            </div>
-        );
+class Panier  extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {value: ''};
+  
+      this.handleChange = this.handleChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
     }
-}
+  
+    handleChange(event) {
+      this.setState({value: event.target.value});
+    }
+  
+    handleSubmit(event) {
+      alert('choissisez le nombre : ' + this.state.value);
+      event.preventDefault();
+    }
+  
+    render() {
+      return (
+        <div>
+          <Search />
+          <h1> La partie pannier </h1>
+          <Carousel className="carousel">
+                  <div className="size">
+                      <img src={jpgVue1} className="vue1" />
+                      <p className="legend">Legend 1</p>
+                  </div>
+                  <div className="size">
+                      <img src={jpgVue2} className="vue1" />
+                      <p className="legend">Legend 2</p>
+                  </div>
+                  <div className="size">
+                      <img src={jpgVue3} className="vue1"/>
+                      <p className="legend">Legend 3</p>
+                  </div>
+              </Carousel>
+              <div className="elementchoix"> 
+                 <tr className="detail">
+                   <th scope="col1">APPLE MAC PRO RETINA</th>
+                   <th scope="col2">Mug chapeau ananas en porcelaine imprimée</th>
+                   <th scope="col3">1000 €</th>
+                 </tr>
+                 <form>
+                   <select value={this.state.value} onChange={this.handleChange}>
+                     <option value="1">1</option>
+                     <option value="2">2</option>
+                     <option selected value="3">3</option>
+                     <option value="4">4</option>
+                  </select>
+                      <input type="submit" value="Ajoutez au panier"  className="ajouter"/>
+                </form>
+              </div>
+        </div>
+      );
+    }
+  }
 
 
 

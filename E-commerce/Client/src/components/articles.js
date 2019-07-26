@@ -35,21 +35,7 @@ class Articles extends Component {
     
     
     render() {
-      return (
-       /* <div >
-          <p>Bienvenu sur Articles</p>
-          {this.state.articles.map((articless) => {
-            return (
-              <li>{articless.name}</li> 
-            )
-          })}
-          
-        </div>
-      )
-    }
-}
-      */
-       
+      return (      
      <div >
      <p>Voici tous les articles qu'on vous propose dans la selection choisi</p>
      {this.state.articles.map((articless) =>{

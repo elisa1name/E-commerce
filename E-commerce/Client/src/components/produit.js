@@ -47,6 +47,9 @@ class Produit extends Component {
                     <Link to={`/variant/${produits.id}`} style={{color: '#20B2AA', textDecoration: 'none'}} key={produits} >
                     {produits.name}
                     </Link>
+                    <br/>
+                    {produits.description}
+                    <br />
                     <img   src={produits.picture} alt="indisponible image" width="350px" height="250px"/>
                     </div>
                     )
