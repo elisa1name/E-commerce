@@ -10,7 +10,7 @@ import { Nav, Row, Col, Button } from 'react-bootstrap';
 class Navbar extends Component {
     render() {
         return (
-            <div>
+            <div >
                 <nav class="navbar navbar-expand-sm bg-light">
                 <h1 class="logo">TECK-BOX</h1>
                     <ul class="navbar-nav">
@@ -26,7 +26,7 @@ class Navbar extends Component {
                         </li>
                         <li class="nav-item">
                         <Tooltip content="Info" placement="bottom" background="rgb(53, 56, 47)" color="#FFF">
-                             <button class="nav-link" href="#"><img src={Infos} widht="100" height="50" alt="infos"/></button>
+                             <a class="nav-link" href="#"><img src={Infos} widht="100" height="50" alt="infos"/></a>
                         </Tooltip>
                         </li>
                 </ul>
