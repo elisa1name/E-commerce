@@ -7,7 +7,7 @@ class Aide extends Component {
         return (
             <div >
                 <h1>Aide</h1>
-                <p>On a tous des problemes dans la vie donc debrouillez-vous</p>
+                <p>Page en cours de creation</p>
         </div>
         )
     }

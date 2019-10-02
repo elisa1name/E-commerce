@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import TableRow from '@material-ui/core/TableRow';
 import ReactList from 'react-list';
 import { BrowserRouter, Link, Route } from 'react-router-dom';
+import '../assets/articles.css';
 
 class Articles extends Component {
   
@@ -13,20 +14,20 @@ class Articles extends Component {
     super(props);
     this.state = {
       articles: [],
-      id: this.props.match.params.id
+      id: this.props.match.params.id,
+      categorie: this.props.category
     }
   }
-
+  
+ 
   
   componentDidMount(){
-    //console.log("here", this.state.id);
+
     axios.get(`http://localhost:8000/category/${this.state.id}/article`)
     .then(response => {
       console.log("data", response.data);
       this.setState({ 
         articles: response.data });
-        
-        //console.log(response);
       })
       .catch(function (error) {
         console.log(error);
@@ -36,22 +37,22 @@ class Articles extends Component {
     
     render() {
       return (      
-     <div >
-       <div className="titre"><p className="test">Articles</p></div>
-     {this.state.articles.map((articless) =>{
-       return (
-         <div>
-         <Link to={`/produit/${articless.id}`} style={{color: '#20B2AA', textDecoration: 'none'}} key={articless} >
-         {articless.name}
-         </Link>
-         <img  className="imagess" src={articless.picture} alt="indisponible image" width="350px" height="250px"/>
-         </div>
-         )
-         
-       })}
-       </div>
-       )
-       
-     }
-   } 
+        <div >
+        <div className="titre"><p className="test">Articles</p></div>
+        {this.state.articles.map((articless) =>{
+          return (
+            <div>
+            <Link to={`/produit/${articless.id}`} style={{color: '#20B2AA', textDecoration: 'none'}} key={articless} >
+            {articless.name}
+            <img  className="imagess" src={articless.picture} alt="indisponible image" width="350px" height="250px"/>
+            </Link>
+            </div>
+            )
+            
+          })}
+          </div>
+          )
+          
+        }
+      } 
       export default Articles;

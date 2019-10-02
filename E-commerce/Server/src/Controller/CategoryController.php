@@ -86,4 +86,66 @@ class CategoryController extends AbstractController
         return View::create($category, Response::HTTP_CREATED , []);
         
     }
+
+     /**
+     * @FOSRest\Post("api/admin/category/{id}/edit")
+     */
+    public function edit(Request $request, Category $category)
+    {
+        $content = json_decode(
+            $request->getContent(),true
+        );
+
+        $name = $content['name']; 
+        $image = $content['image'];
+
+        $category->setName($name); 
+        $category->setPicture($image); 
+
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($category);
+        $manager->flush();
+
+        return View::create(["success" => $category->getName(). " est modifier !"], Response::HTTP_OK , []);
+    }
+
+    /**
+     * @FOSRest\Post("api/admin/category/new")
+     */
+    public function new(Request $request)
+    {
+        $category = new Category();
+        $content = json_decode(
+            $request->getContent(),true
+        );
+
+        $name = $content['name']; 
+        $image = $content['image'];
+
+        $category->setName($name); 
+        $category->setPicture($image); 
+
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($category);
+        $manager->flush();
+
+        return View::create(["success" => $category->getName(). " est ajouter !"], Response::HTTP_OK , []);
+    }
+
+    /**
+    * @FOSRest\Delete("api/admin/category/{id}")
+    */
+    public function delete(Request $request, Category $category) 
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($category);
+        $manager->flush();
+        
+        return View::create(["success" => "La catégorie ".$category->getName(). " est bien supprimé"]);
+    }
+
+
+
 }
+
+

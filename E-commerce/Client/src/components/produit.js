@@ -6,6 +6,8 @@ import PropTypes from "prop-types";
 import TableRow from '@material-ui/core/TableRow';
 import ReactList from 'react-list';
 import { BrowserRouter, Link, Route } from 'react-router-dom';
+import FilterResults from 'react-filter-search';
+import '../assets/produit.css';
 
 class Produit extends Component {
     
@@ -40,17 +42,21 @@ class Produit extends Component {
             return (
              
             <div >
-            <p>Choix de votre produit</p>
+                <div id="ProductFilter"></div>
+             <div className="titre"><p className="test"><p></p>Produit</p></div>
             {this.state.produit.map((produits) =>{
                 return (
                     <div>
-                    <Link to={`/variant/${produits.id}`} style={{color: '#20B2AA', textDecoration: 'none'}} key={produits} >
+                    <Link to={`/variant/${produits.id}`} style={{color: '#20B2AA', textDecoration: 'none', display: 'inline-block'}} key={produits} >
                     {produits.name}
+                    <img  style={{float: 'left', marginLeft: '35px',}} key={produits} src={produits.fixed_picture} alt="indisponible image" width="350px" height="250px"/>
                     </Link>
                     <br/>
                     {produits.description}
                     <br />
-                    <img   src={produits.picture} alt="indisponible image" width="350px" height="250px"/>
+                    <br>
+                    </br>
+                    {produits.fixed_price}€
                     </div>
                     )
                     
@@ -61,3 +67,8 @@ class Produit extends Component {
             }
         } 
         export default Produit;
+        
+  
+ 
+
+  

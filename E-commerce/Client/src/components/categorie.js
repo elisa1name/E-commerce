@@ -47,8 +47,8 @@ class Categorie extends Component {
         return (
           <div>
           <Link to={`/articles/${categorie.id}`}  style={{color: '#20B2AA', textDecoration: 'none'}} key={categorie} >
+          <text className="">{categorie.name}</text>
           <img  className="imagess" src={categorie.picture} alt="indisponible image" width="400px" height="250px" />
-             <div className="">{categorie.name}</div>
           </Link>
           </div>
           )

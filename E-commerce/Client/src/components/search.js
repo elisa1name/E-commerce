@@ -10,7 +10,7 @@ class Search extends Component {
                         ref={input => this.search = input}
                          onChange={this.handleInputChange}
                         />
-            <button class="button">Search</button>
+            <button class="button" style={{ marginLeft: "1%" }} >Search</button>
             </form>
                 
         )

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import '../../assets/listeCategories.css';
 
 export default class Users extends Component {
 
@@ -16,7 +17,6 @@ export default class Users extends Component {
 
         axios.get(`http://localhost:8000/api/admin/users`)
             .then(res => {
-                console.log(res.data);
                 this.setState({ users: res.data })
 
             })
@@ -29,37 +29,39 @@ export default class Users extends Component {
         const users = this.state.users
         return (
 
-            <div>
+            <div id="card">
 
-                <h1 style={{ textAlign: 'center' }}>UserList</h1>
+                <h1 style={{ textAlign: 'center' }}>Listes des utilisateurs</h1>
 
-                <div>
-                    <Link class="butn" id="right" to={{
-                        pathname: "/admin/users/new",
-
-                    }}>Creer un user</Link>
+                <div style={{textAlign: "center"}}>
+                    <Link class="butn" id="right" to={{pathname: "/admin/user/new"}}>Creer un user</Link>
                 </div>
-                <div style={{ margin: '40px', padding: '50px' }}>
-                    <ul>
+                <table className="tableCategorie">
+                <thead>
+                        <tr>
+                            <td><h3>Id</h3></td>
+                            <td><h3>Prénom</h3></td>
+                            <td><h3>Nom</h3></td>
+                            <td><h3>Email</h3></td>
+                            <td><h3>Adresse complet</h3></td>
+                            <td><h3>Telephone</h3></td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
                         {users.map(item => (
-                            <li key={item.id}>
-                                <div>{item.id}</div>
-                                <div>{item.firstname}</div>
-                                <div>{item.name}</div>
-                                <div>{item.adress}</div>
-                                <div>{item.telephone}</div>
-                            </li>
+                            <tr key={item.id}>
+                                <td>{item.id}</td>
+                                <td>{item.firstname}</td>
+                                <td>{item.name}</td>
+                                <td>{item.email}</td>
+                                <td>{item.adress}</td>
+                                <td>{item.telephone }</td>
+                            </tr>
                         ))}
-                    </ul>
-                </div>
-
-
-
-
-
+                    </tbody>
+                </table>
             </div>
-
-
         )
     }
 

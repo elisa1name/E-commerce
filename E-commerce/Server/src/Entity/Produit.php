@@ -49,6 +49,16 @@ class Produit
      */
     private $stocks;
 
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2)
+     */
+    private $fixed_price;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $fixed_picture;
+
     public function __construct()
     {
         $this->variants = new ArrayCollection();
@@ -180,6 +190,30 @@ class Produit
             $this->stocks->removeElement($stock);
             $stock->removeProduit($this);
         }
+
+        return $this;
+    }
+
+    public function getFixedPrice()
+    {
+        return $this->fixed_price;
+    }
+
+    public function setFixedPrice($fixed_price): self
+    {
+        $this->fixed_price = $fixed_price;
+
+        return $this;
+    }
+
+    public function getFixedPicture(): ?string
+    {
+        return $this->fixed_picture;
+    }
+
+    public function setFixedPicture(?string $fixed_picture): self
+    {
+        $this->fixed_picture = $fixed_picture;
 
         return $this;
     }

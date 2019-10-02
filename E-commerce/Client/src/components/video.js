@@ -1,21 +1,43 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import Contact from './contact.js';
+import VideoCover from 'react-video-cover';
 
-class Video extends React.Component {
-render(){
-    const {details, index} = this.props;
-    return(
-        <li>
-            <div id="theVideo">
-                <video id="samp" width="640" height="480" controls>
-                    <source src = {details.videoPath} type="video/mp4">
-                        Your browser does not support this video format.
-                    </source>
-                </video>
+class VideoBackground extends Component {
+    state = {
+        resizeNotifier: () => {},
+    }
+    
+    render() {
+        const videoOptions = {
+            src: require('./Computer.mp4'),
+            autoPlay: true,
+            loop: true,
+            muted: true
+        };
+        const stylevideo = {
+            width: '150vw',
+            height: '50vh',
+            position: 'absolute',
+            margin: 'auto',
+            top: '-25vh',
+            left: '-25vw',
+            marginTop: '362px',
+            zIndex: -2,
+        };
+        return (
+            <div style={stylevideo} >
+            <VideoCover
+            videoOptions={videoOptions}
+            remeasureOnWindowResize
+            getResizeNotifier={resizeNotifier => {
+                this.setState({
+                    resizeNotifier,
+                });
+            }}
+            />
             </div>
-            {details.textOfSpeech}
-        </li>
-    );
-}
-}
-export default Video;
+            );
+        }
+    }
+    export default VideoBackground;

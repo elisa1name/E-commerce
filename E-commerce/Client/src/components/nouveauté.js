@@ -5,7 +5,7 @@ class Nouveauté extends Component {
     render() {
         return (
             <div >
-                <p>Bienvenu sur Nouveauté</p>
+                <p>Bienvenue sur Nouveauté</p>
         </div>
         )
     }

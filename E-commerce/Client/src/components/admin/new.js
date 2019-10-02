@@ -23,8 +23,6 @@ export default class New extends Component {
             roles: [],
             isSingup: false // <-- initialize the signup state as false
         };
-
-
     }
 
 
@@ -62,17 +60,15 @@ export default class New extends Component {
         axios.post(`http://127.0.0.1:8000/api/admin/users/new`, user)
             .then(res => {
                 this.setState({ isSingup: true });
-                alert("Données Modifier avec succès !");
+                alert("L'utilisateur est bien enregistré avec succès !");
                 console.log(res.data);
-
             })
             .catch(error => {
                 console.log(error)
-                this.setState({ result: "L'e-mail " });
+                this.setState({ result: "l'utilisateur non enregister " });
                 alert(this.state.result);
             });
     }
-
 
 
     render() {
@@ -162,13 +158,9 @@ export default class New extends Component {
                         >
                             Valider
                         </Button>
-
-
                     </form>
                 </div>
             );
         }
     }
-
-
 }
